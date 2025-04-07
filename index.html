@@ -1,90 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rapihin Teks</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rapihin Teks</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 min-h-screen flex items-center justify-center p-6">
-  <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
-    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">🧹 Format Teks Berantakan</h1>
-    <textarea id="inputText" placeholder="Tempel teks berantakan di sini..."
-      class="w-full h-48 p-4 border-2 border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent resize-y mb-4"></textarea>
-    <div class="flex gap-4 mb-4">
-      <button onclick="rapihinTeks()"
-        class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">✨ Format Teks</button>
-      <button onclick="clearTeks()"
-        class="flex-1 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition">🗑️ Clear Teks</button>
+  <body
+    class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 min-h-screen flex items-center justify-center p-6"
+  >
+    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
+      <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">🧹 Format Teks Berantakan</h1>
+      <textarea
+        id="inputText"
+        placeholder="Tempel teks berantakan di sini..."
+        class="w-full h-48 p-4 border-2 border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent resize-y mb-4"
+      ></textarea>
+      <div class="flex gap-4 mb-4">
+        <button
+          onclick="rapihinTeks()"
+          class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
+        >
+          ✨ Format Teks
+        </button>
+        <button
+          onclick="clearTeks()"
+          class="flex-1 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition"
+        >
+          🗑️ Clear Teks
+        </button>
+      </div>
+      <div
+        id="outputText"
+        class="mt-6 bg-indigo-50 border border-indigo-200 rounded-lg p-4 whitespace-pre-wrap font-medium text-gray-800"
+      ></div>
+      <button
+        onclick="copyTeks()"
+        class="w-full mt-4 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
+      >
+        📋 Salin Teks
+      </button>
     </div>
-    <div id="outputText"
-      class="mt-6 bg-indigo-50 border border-indigo-200 rounded-lg p-4 whitespace-pre-wrap font-medium text-gray-800"></div>
-    <button onclick="copyTeks()"
-      class="w-full mt-4 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition">📋 Salin Teks</button>
-  </div>
 
-  <script>
-    function copyTeks() {
-      const outputText = document.getElementById("outputText").innerText;
-      if (!outputText) return;
-      
-      navigator.clipboard.writeText(outputText)
-        .then(() => {
-          const button = document.querySelector("button[onclick='copyTeks()']");
-          button.textContent = "✓ Tersalin!";
-          button.classList.remove("bg-green-600", "hover:bg-green-700");
-          button.classList.add("bg-green-500");
-          
-          setTimeout(() => {
-            button.textContent = "📋 Salin Teks";
-            button.classList.remove("bg-green-500");
-            button.classList.add("bg-green-600", "hover:bg-green-700");
-          }, 2000);
-        })
-        .catch(err => {
-          console.error('Gagal menyalin teks: ', err);
-        });
-    }
-    function rapihinTeks() {
-      let text = document.getElementById("inputText").value;
+    <script>
+      function copyTeks() {
+        const outputText = document.getElementById("outputText").innerText;
+        if (!outputText) return;
 
-      // Hapus pemisah seperti --- dan spasi berlebihan
-      text = text.replace(/---+/g, "");
+        navigator.clipboard
+          .writeText(outputText)
+          .then(() => {
+            const button = document.querySelector("button[onclick='copyTeks()']");
+            button.textContent = "✓ Tersalin!";
+            button.classList.remove("bg-green-600", "hover:bg-green-700");
+            button.classList.add("bg-green-500");
 
-      // Hapus baris kosong lebih dari 2 baris
-      text = text.replace(/\n{3,}/g, "\n\n");
+            setTimeout(() => {
+              button.textContent = "📋 Salin Teks";
+              button.classList.remove("bg-green-500");
+              button.classList.add("bg-green-600", "hover:bg-green-700");
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("Gagal menyalin teks: ", err);
+          });
+      }
+      function rapihinTeks() {
+        let text = document.getElementById("inputText").value;
 
-      // Pisah teks per baris dan rapikan
-      const lines = text.split("\n").map(line => line.trim());
+        // Hapus pemisah seperti --- dan spasi berlebihan
+        text = text.replace(/---+/g, "");
 
-      // Gabung lagi dengan maksimal 1 baris kosong antar paragraf
-      let result = [];
-      let emptyLine = false;
+        // Hapus baris kosong lebih dari 2 baris
+        text = text.replace(/\n{3,}/g, "\n\n");
 
-      for (let line of lines) {
-        if (line === "") {
-          if (!emptyLine) {
-            result.push("");
-            emptyLine = true;
+        // Pisah teks per baris dan rapikan
+        const lines = text.split("\n").map((line) => line.trim());
+
+        // Gabung lagi dengan maksimal 1 baris kosong antar paragraf
+        let result = [];
+        let emptyLine = false;
+
+        for (let line of lines) {
+          if (line === "") {
+            if (!emptyLine) {
+              result.push("");
+              emptyLine = true;
+            }
+          } else {
+            result.push(line);
+            emptyLine = false;
           }
-        } else {
-          result.push(line);
-          emptyLine = false;
         }
+
+        const cleanedText = result.join("\n").trim();
+        document.getElementById("outputText").innerText = cleanedText;
       }
 
-      const cleanedText = result.join("\n").trim();
-      document.getElementById("outputText").innerText = cleanedText;
-    }
-
-    function clearTeks() {
-      document.getElementById("inputText").value = "";
-      document.getElementById("outputText").innerText = "";
-    }
-  </script>
-</body>
-
+      function clearTeks() {
+        document.getElementById("inputText").value = "";
+        document.getElementById("outputText").innerText = "";
+      }
+    </script>
+  </body>
 </html>
