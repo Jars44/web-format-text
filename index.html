@@ -4,13 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Format Teks</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
 
-  <body
-    class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 min-h-screen flex items-center justify-center p-6"
-  >
+  <body class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 min-h-screen flex items-center justify-center p-6">
     <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
       <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">🧹 Format Teks Berantakan</h1>
       <textarea
@@ -23,13 +21,13 @@
           onclick="rapihinTeks()"
           class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
         >
-          ✨ Format Teks
+          ✨  Format Text
         </button>
         <button
           onclick="clearTeks()"
           class="flex-1 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition"
         >
-          🗑️ Clear Teks
+          🗑️ Clear Text
         </button>
       </div>
       <div
@@ -40,69 +38,49 @@
         onclick="copyTeks()"
         class="w-full mt-4 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
       >
-        📋 Salin Teks
+        📋 Copy Text
       </button>
     </div>
 
     <script>
-      function copyTeks() {
-        const outputText = document.getElementById("outputText").innerText;
-        if (!outputText) return;
+      // Cache DOM elements
+      const input = document.getElementById('inputText');
+      const output = document.getElementById('outputText');
+      const copyBtn = document.querySelector("button[onclick='copyTeks()']");
 
-        navigator.clipboard
-          .writeText(outputText)
-          .then(() => {
-            const button = document.querySelector("button[onclick='copyTeks()']");
-            button.textContent = "✓ Tersalin!";
-            button.classList.remove("bg-green-600", "hover:bg-green-700");
-            button.classList.add("bg-green-500");
+      const rapihinTeks = () => {
+        const cleanedText = input.value
+          .replace(/---+/g, '')              // Hapus pemisah
+          .replace(/(\r\n|\n|\r){3,}/g, '\n\n') // Batasi baris kosong
+          .split('\n')
+          .map(line => line.trim())
+          .filter((line, i, arr) => line || arr[i-1] !== line) // Hapus baris kosong berurutan
+          .join('\n')
+          .trim();
+          
+        output.textContent = cleanedText;
+      };
 
-            setTimeout(() => {
-              button.textContent = "📋 Salin Teks";
-              button.classList.remove("bg-green-500");
-              button.classList.add("bg-green-600", "hover:bg-green-700");
-            }, 2000);
-          })
-          .catch((err) => {
-            console.error("Gagal menyalin teks: ", err);
-          });
-      }
-      function rapihinTeks() {
-        let text = document.getElementById("inputText").value;
+      const clearTeks = () => {
+        input.value = '';
+        output.textContent = '';
+      };
 
-        // Hapus pemisah seperti --- dan spasi berlebihan
-        text = text.replace(/---+/g, "");
-
-        // Hapus baris kosong lebih dari 2 baris
-        text = text.replace(/\n{3,}/g, "\n\n");
-
-        // Pisah teks per baris dan rapikan
-        const lines = text.split("\n").map((line) => line.trim());
-
-        // Gabung lagi dengan maksimal 1 baris kosong antar paragraf
-        let result = [];
-        let emptyLine = false;
-
-        for (let line of lines) {
-          if (line === "") {
-            if (!emptyLine) {
-              result.push("");
-              emptyLine = true;
-            }
-          } else {
-            result.push(line);
-            emptyLine = false;
-          }
+      const copyTeks = async () => {
+        if (!output.textContent) return;
+        
+        try {
+          await navigator.clipboard.writeText(output.textContent);
+          copyBtn.textContent = '✓ Tersalin!';
+          copyBtn.classList.replace('bg-green-600', 'bg-green-500');
+          setTimeout(() => {
+            copyBtn.textContent = '📋 Salin Teks';
+            copyBtn.classList.replace('bg-green-500', 'bg-green-600');
+          }, 2000);
+        } catch (err) {
+          console.error('Gagal menyalin:', err);
         }
-
-        const cleanedText = result.join("\n").trim();
-        document.getElementById("outputText").innerText = cleanedText;
-      }
-
-      function clearTeks() {
-        document.getElementById("inputText").value = "";
-        document.getElementById("outputText").innerText = "";
-      }
+      };
     </script>
   </body>
 </html>
