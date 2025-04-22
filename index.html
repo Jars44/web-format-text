@@ -71,15 +71,43 @@
       const copyNonWABtn = document.getElementById("copyNonWABtn");
 
       const rapihinTeks = () => {
-        const cleanedText = input.value
+        // Define line-specific rules: line numbers (0-based) where spaces should be removed or extra line added
+        // For demonstration, let's say lines 1 and 3 remove spaces, line 2 add extra empty line after
+        const linesToRemoveSpaces = [1, 3];
+        const linesToAddExtraLine = [2];
+
+        let lines = input.value
           .replace(/---+/g, "") // Hapus pemisah
           .replace(/###+/g, "") // Hapus tanda pagar
           .replace(/(\r\n|\n|\r){3,}/g, "\n\n") // Batasi baris kosong
-          .split("\n")
-          .map((line) => line.trim())
-          .filter((line, i, arr) => line || arr[i - 1] !== line) // Hapus baris kosong berurutan
-          .join("\n")
-          .trim();
+          .split("\n");
+
+        // Process lines with rules
+        lines = lines.map((line, index) => {
+          let processedLine = line;
+          if (linesToRemoveSpaces.includes(index)) {
+            // Remove all spaces in this line
+            processedLine = line.replace(/\s+/g, "");
+          } else {
+            // Trim normally
+            processedLine = line.trim();
+          }
+          return processedLine;
+        });
+
+        // Remove consecutive empty lines
+        lines = lines.filter((line, i, arr) => line || arr[i - 1] !== line);
+
+        // Add extra empty lines after specified lines
+        let finalLines = [];
+        lines.forEach((line, index) => {
+          finalLines.push(line);
+          if (linesToAddExtraLine.includes(index)) {
+            finalLines.push(""); // add extra empty line
+          }
+        });
+
+        const cleanedText = finalLines.join("\n").trim();
 
         output.textContent = cleanedText;
       };
@@ -108,8 +136,17 @@
       const copyTeksWA = async () => {
         if (!output.textContent) return;
 
-        // Replace double asterisks with single asterisk for WhatsApp bold formatting
-        const waText = output.textContent.replace(/\*\*/g, "*");
+        // Convert markdown-like syntax to WhatsApp formatting symbols
+        let waText = output.textContent;
+
+        // Bold: **text** or *text* to *text*
+        waText = waText.replace(/\*\*(.*?)\*\*/g, "*$1*");
+        // Italic: _text_ to _text_
+        // (Assuming input uses _ for italic already, so no change needed)
+        // Underline: ~text~ to _text_ (WhatsApp uses _ for italic, no underline, so we can skip or map ~ to _)
+        waText = waText.replace(/~(.*?)~/g, "_$1_");
+        // Strikethrough: `text` to ~text~
+        waText = waText.replace(/`(.*?)`/g, "~$1~");
 
         try {
           await navigator.clipboard.writeText(waText);
