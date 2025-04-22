@@ -52,13 +52,6 @@
         >
           📋 Copy for WA
         </button>
-        <button
-          id="copyNonWABtn"
-          onclick="copyTeksNonWA()"
-          class="flex-1 bg-yellow-600 text-white py-3 rounded-lg font-semibold hover:bg-yellow-700 transition"
-        >
-          📋 Copy for Non-WA
-        </button>
       </div>
     </div>
 
@@ -82,7 +75,7 @@
           .split("\n");
 
         // Remove lines that contain exactly 2 or 3 hash symbols only
-        lines = lines.filter(line => !/^#{2,3}$/.test(line.trim()));
+        lines = lines.filter((line) => !/^#{2,3}$/.test(line.trim()));
 
         // Process lines with rules
         lines = lines.map((line, index) => {
@@ -147,11 +140,11 @@
         // Clean input text before applying WhatsApp formatting
         let waText = input.value
           .replace(/---+/g, "") // Remove sequences of ---
-          .replace(/--+/g, "")  // Remove sequences of --
+          .replace(/--+/g, "") // Remove sequences of --
           .split("\n")
-          .filter(line => !/^#{2,3}$/.test(line.trim())) // Remove lines with exactly 2 or 3 hashes
-          .map(line => line.trim())
-          .filter(line => line.length > 0)
+          .filter((line) => !/^#{2,3}$/.test(line.trim())) // Remove lines with exactly 2 or 3 hashes
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0)
           .join("\n");
 
         // Convert markdown-like syntax to WhatsApp formatting symbols
@@ -178,29 +171,9 @@
           console.error("Gagal menyalin WA:", err);
         }
       };
-        waText = waText.replace(/`(.*?)`/g, "~$1~");
-        waText = waText.replace(/`(.*?)`/g, "~$1~");
-        waText = waText.replace(/`(.*?)`/g, "~$1~");
-
-      const copyTeksNonWA = async () => {
-        if (!output.textContent) return;
-
-        // Remove distracting or unnecessary symbols for non-WA version
-        // For example: remove *, _, ~, ` symbols
-        const nonWAText = output.textContent.replace(/[\*\_\~\`]/g, "");
-
-        try {
-          await navigator.clipboard.writeText(nonWAText);
-          copyNonWABtn.textContent = "✓ Tersalin!";
-          copyNonWABtn.classList.replace("bg-yellow-600", "bg-yellow-500");
-          setTimeout(() => {
-            copyNonWABtn.textContent = "📋 Copy for Non-WA";
-            copyNonWABtn.classList.replace("bg-yellow-500", "bg-yellow-600");
-          }, 2000);
-        } catch (err) {
-          console.error("Gagal menyalin Non-WA:", err);
-        }
-      };
+      waText = waText.replace(/`(.*?)`/g, "~$1~");
+      waText = waText.replace(/`(.*?)`/g, "~$1~");
+      waText = waText.replace(/`(.*?)`/g, "~$1~");
     </script>
   </body>
 </html>
