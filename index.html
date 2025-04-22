@@ -144,11 +144,18 @@
       const copyTeksWA = async () => {
         if (!output.textContent) return;
 
-        // Use original input text for formatting symbols
-        let waText = input.value;
+        // Clean input text before applying WhatsApp formatting
+        let waText = input.value
+          .replace(/---+/g, "") // Remove sequences of ---
+          .replace(/--+/g, "")  // Remove sequences of --
+          .split("\n")
+          .filter(line => !/^#{2,3}$/.test(line.trim())) // Remove lines with exactly 2 or 3 hashes
+          .map(line => line.trim())
+          .filter(line => line.length > 0)
+          .join("\n");
 
         // Convert markdown-like syntax to WhatsApp formatting symbols
-        // Bold: **text** or *text* to *text*
+        // Replace double asterisks with single asterisk for bold
         waText = waText.replace(/\*\*(.*?)\*\*/g, "*$1*");
         // Italic: _text_ to _text_
         // (Assuming input uses _ for italic already, so no change needed)
@@ -171,6 +178,7 @@
           console.error("Gagal menyalin WA:", err);
         }
       };
+        waText = waText.replace(/`(.*?)`/g, "~$1~");
         waText = waText.replace(/`(.*?)`/g, "~$1~");
         waText = waText.replace(/`(.*?)`/g, "~$1~");
 
