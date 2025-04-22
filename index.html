@@ -97,6 +97,8 @@
             processedLine = processedLine.replace(/\s{2,}/g, " ");
             // Remove disturbing symbols except basic punctuation, alphanumeric characters, and markdown symbols for formatting
             processedLine = processedLine.replace(/[^\w\s.,!?'"\-*_~`]/g, "");
+            // Remove markdown symbols for preview (remove *, _, ~, `, and triple backticks)
+            processedLine = processedLine.replace(/(\*\*|\*|_|~|`{1,3})/g, "");
           }
           return processedLine;
         });
@@ -142,9 +144,10 @@
       const copyTeksWA = async () => {
         if (!output.textContent) return;
 
-        // Convert markdown-like syntax to WhatsApp formatting symbols
-        let waText = output.textContent;
+        // Use original input text for formatting symbols
+        let waText = input.value;
 
+        // Convert markdown-like syntax to WhatsApp formatting symbols
         // Bold: **text** or *text* to *text*
         waText = waText.replace(/\*\*(.*?)\*\*/g, "*$1*");
         // Italic: _text_ to _text_
@@ -153,6 +156,8 @@
         waText = waText.replace(/~(.*?)~/g, "_$1_");
         // Strikethrough: `text` to ~text~
         waText = waText.replace(/`(.*?)`/g, "~$1~");
+        // Code block: ```text``` keep as is for WhatsApp monospace block
+        // No change needed for triple backticks
 
         try {
           await navigator.clipboard.writeText(waText);
@@ -166,6 +171,8 @@
           console.error("Gagal menyalin WA:", err);
         }
       };
+        waText = waText.replace(/`(.*?)`/g, "~$1~");
+        waText = waText.replace(/`(.*?)`/g, "~$1~");
 
       const copyTeksNonWA = async () => {
         if (!output.textContent) return;
