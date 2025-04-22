@@ -95,8 +95,8 @@
             processedLine = line.trim();
             // Remove excessive spaces inside the line (more than one space)
             processedLine = processedLine.replace(/\s{2,}/g, " ");
-            // Remove disturbing symbols except basic punctuation and alphanumeric characters
-            processedLine = processedLine.replace(/[^\w\s.,!?'"-]/g, "");
+            // Remove disturbing symbols except basic punctuation, alphanumeric characters, and markdown symbols for formatting
+            processedLine = processedLine.replace(/[^\w\s.,!?'"\-*_~`]/g, "");
           }
           return processedLine;
         });
