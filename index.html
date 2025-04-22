@@ -74,7 +74,7 @@
           .split("\n");
 
         // Remove lines that contain exactly 2 or 3 hash symbols only
-        lines = lines.filter((line) => !/^#{2,3}$/.test(line.trim()));
+        lines = lines.filter((line) => !/^#{2,}$/.test(line.trim()));
 
         // Process lines with rules
         lines = lines.map((line, index) => {
@@ -139,7 +139,7 @@
           .replace(/---+/g, "") // Remove sequences of ---
           .replace(/--+/g, "") // Remove sequences of --
           .split("\n")
-          .filter((line) => !/^#{2,3}$/.test(line.trim())) // Remove lines with exactly 2 or 3 hashes
+          .filter((line) => !/^#+$/.test(line.trim())) // Remove lines with only hashes (any number)
           .map((line) => line.trim())
           .filter((line) => line.length > 0)
           .join("\n");
