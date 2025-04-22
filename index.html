@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   </head>
+
   <body
     class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 min-h-screen flex items-center justify-center p-6"
   >
@@ -53,23 +54,28 @@
         </button>
       </div>
     </div>
+
     <script>
       // Cache DOM elements
       const input = document.getElementById("inputText");
       const output = document.getElementById("outputText");
       const copyRawBtn = document.getElementById("copyRawBtn");
       const copyWABtn = document.getElementById("copyWABtn");
+
       const rapihinTeks = () => {
         // Define line-specific rules: line numbers (0-based) where spaces should be removed or extra line added
         // For demonstration, let's say lines 1 and 3 remove spaces, line 2 add extra empty line after
         const linesToRemoveSpaces = [1, 3];
         const linesToAddExtraLine = [2];
+
         let lines = input.value
           .replace(/---+/g, "") // Hapus pemisah
           .replace(/(\r\n|\n|\r){3,}/g, "\n\n") // Batasi baris kosong
           .split("\n");
+
         // Remove lines that contain exactly 2 or 3 hash symbols only
-        lines = lines.filter((line) => !/^#+\s?.*$/.test(line.trim()));
+        lines = lines.filter((line) => !/^#{2,3}$/.test(line.trim()));
+
         // Process lines with rules
         lines = lines.map((line, index) => {
           let processedLine = line;
@@ -86,8 +92,10 @@
           }
           return processedLine;
         });
+
         // Remove consecutive empty lines
         lines = lines.filter((line, i, arr) => line || arr[i - 1] !== line);
+
         // Add extra empty lines after specified lines
         let finalLines = [];
         lines.forEach((line, index) => {
@@ -96,15 +104,20 @@
             finalLines.push(""); // add extra empty line
           }
         });
+
         const cleanedText = finalLines.join("\n").trim();
+
         output.textContent = cleanedText;
       };
+
       const clearTeks = () => {
         input.value = "";
         output.textContent = "";
       };
+
       const copyTeks = async () => {
         if (!output.textContent) return;
+
         try {
           await navigator.clipboard.writeText(output.textContent);
           copyRawBtn.textContent = "✓ Tersalin!";
@@ -117,17 +130,20 @@
           console.error("Gagal menyalin:", err);
         }
       };
+
       const copyTeksWA = async () => {
         if (!output.textContent) return;
+
         // Clean input text before applying WhatsApp formatting
         let waText = input.value
           .replace(/---+/g, "") // Remove sequences of ---
           .replace(/--+/g, "") // Remove sequences of --
           .split("\n")
-          .filter((line) => !/^#+\s?.*$/.test(line.trim())) // Remove lines starting with hashes (markdown headings)
+          .filter((line) => !/^#{2,3}$/.test(line.trim())) // Remove lines with exactly 2 or 3 hashes
           .map((line) => line.trim())
           .filter((line) => line.length > 0)
           .join("\n");
+
         // Convert markdown-like syntax to WhatsApp formatting symbols
         // Replace double asterisks with single asterisk for bold
         waText = waText.replace(/\*\*(.*?)\*\*/g, "*$1*");
@@ -139,6 +155,7 @@
         waText = waText.replace(/`(.*?)`/g, "~$1~");
         // Code block: ```text``` keep as is for WhatsApp monospace block
         // No change needed for triple backticks
+
         try {
           await navigator.clipboard.writeText(waText);
           copyWABtn.textContent = "✓ Tersalin!";
