@@ -78,9 +78,11 @@
 
         let lines = input.value
           .replace(/---+/g, "") // Hapus pemisah
-          .replace(/###+/g, "") // Hapus tanda pagar
           .replace(/(\r\n|\n|\r){3,}/g, "\n\n") // Batasi baris kosong
           .split("\n");
+
+        // Remove lines that contain exactly 2 or 3 hash symbols only
+        lines = lines.filter(line => !/^#{2,3}$/.test(line.trim()));
 
         // Process lines with rules
         lines = lines.map((line, index) => {
@@ -91,6 +93,10 @@
           } else {
             // Trim normally
             processedLine = line.trim();
+            // Remove excessive spaces inside the line (more than one space)
+            processedLine = processedLine.replace(/\s{2,}/g, " ");
+            // Remove disturbing symbols except basic punctuation and alphanumeric characters
+            processedLine = processedLine.replace(/[^\w\s.,!?'"-]/g, "");
           }
           return processedLine;
         });
