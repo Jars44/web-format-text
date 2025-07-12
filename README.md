@@ -33,4 +33,4 @@ Simply open the `index.html` file in any modern web browser to use the applicati
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is open source and free to use.
