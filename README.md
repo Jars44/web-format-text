@@ -60,13 +60,11 @@ Contributions are welcome! Please follow these guidelines:
 
 ## FAQ
 
-- **Q**: Can I use this app offline?  
+- **Q**: Can I use this app offline?
   - **A**: Yes, this is a client-side web application that runs entirely in your browser without requiring an internet connection.
-
-- **Q**: Does the app support other markdown symbols?  
+- **Q**: Does the app support other markdown symbols?
   - **A**: Currently, it supports common markdown symbols like `*`, `_`, `~`, and backticks. Support for additional symbols may be added in future updates.
-
-- **Q**: Can I customize the formatting rules?  
+- **Q**: Can I customize the formatting rules?
   - **A**: Not at this time, but contributions to add customization features are welcome.
 
 ## License
