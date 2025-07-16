@@ -1,6 +1,6 @@
-# Format Teks Berantakan
+# Messy Text Formatting
 
-Format Teks Berantakan is a simple web application designed to clean and format messy or cluttered text. Users can paste unformatted text and use the app to remove unwanted markdown symbols, trim spaces, and limit empty lines. The app also supports copying the formatted text in both raw and WhatsApp-friendly formats.
+Messy Text Formatting is a simple web application designed to clean and format messy or cluttered text. Users can paste unformatted text and use the app to remove unwanted markdown symbols, trim spaces, and limit empty lines. The app also supports copying the formatted text in both raw and WhatsApp-friendly formats.
 
 ## Features
 
