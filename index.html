@@ -6,6 +6,7 @@
     <title>Format Teks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
 
   <body
@@ -24,6 +25,12 @@
           class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
         >
           ✨ Format Text
+        </button>
+        <button
+          onclick="markdownToText()"
+          class="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+        >
+          📝 Markdown to Text
         </button>
         <button
           onclick="clearTeks()"

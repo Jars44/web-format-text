@@ -14,7 +14,7 @@ const rapihinTeks = () => {
     .split("\n");
 
   // Remove lines that contain exactly 2 or 3 hash symbols only
-  lines = lines.filter(line => !/^#{2,3}$/.test(line.trim()));
+  lines = lines.filter((line) => !/^#{2,3}$/.test(line.trim()));
 
   // Process lines with rules
   let finalLines = [];
@@ -99,4 +99,17 @@ const copyTeksWA = async () => {
   } catch (err) {
     console.error("Gagal menyalin WA:", err);
   }
+};
+
+const stripHTML = (html) => {
+  const tmp = document.createElement("DIV");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+};
+
+const markdownToText = () => {
+  if (!input.value) return;
+  const html = marked.parse(input.value);
+  const plainText = stripHTML(html);
+  output.textContent = plainText;
 };

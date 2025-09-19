@@ -7,6 +7,7 @@ Messy Text Formatting is a simple web application designed to clean and format m
 - Cleans and formats pasted text by removing markdown symbols such as `*`, `_`, `~`, and backticks.
 - Trims extra spaces and limits consecutive empty lines.
 - Removes lines containing only 2 or 3 hash symbols.
+- Converts markdown to plain text, handling headings, lists, links, and other structures.
 - Copies the cleaned text to the clipboard.
 - Copies a WhatsApp-formatted version of the text with appropriate markdown conversions.
 - Clears input and output fields with a single click.
