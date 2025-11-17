@@ -1,9 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Format Teks</title>
+    <title>Format Teks - Alat Online untuk Membersihkan dan Memformat Teks Berantakan</title>
+    <meta
+      name="description"
+      content="Format Teks adalah alat online gratis untuk membersihkan dan memformat teks berantakan. Hapus simbol markdown, trim spasi, dan format untuk WhatsApp dengan mudah."
+    />
+    <meta
+      name="keywords"
+      content="format teks, bersihkan teks, markdown ke teks, format WhatsApp, alat teks online, clean text, text formatter"
+    />
+    <meta name="author" content="Jars44" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://jars44.github.io/web-format-text/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jars44.github.io/web-format-text/" />
+    <meta property="og:title" content="Format Teks - Alat Online untuk Membersihkan Teks" />
+    <meta
+      property="og:description"
+      content="Format Teks adalah alat online gratis untuk membersihkan dan memformat teks berantakan. Hapus simbol markdown, trim spasi, dan format untuk WhatsApp dengan mudah."
+    />
+    <meta property="og:image" content="https://jars44.github.io/web-format-text/preview.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://jars44.github.io/web-format-text/" />
+    <meta property="twitter:title" content="Format Teks - Alat Online untuk Membersihkan Teks" />
+    <meta
+      property="twitter:description"
+      content="Format Teks adalah alat online gratis untuk membersihkan dan memformat teks berantakan. Hapus simbol markdown, trim spasi, dan format untuk WhatsApp dengan mudah."
+    />
+    <meta property="twitter:image" content="https://jars44.github.io/web-format-text/preview.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Format Teks",
+        "description": "Alat online untuk membersihkan dan memformat teks berantakan, menghapus simbol markdown, dan memformat untuk WhatsApp.",
+        "url": "https://jars44.github.io/web-format-text/",
+        "applicationCategory": "Utility",
+        "operatingSystem": "Web Browser",
+        "author": {
+          "@type": "Person",
+          "name": "Jars44"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -14,6 +68,10 @@
   >
     <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
       <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">🧹 Format Teks Berantakan</h1>
+      <p class="text-center text-gray-600 mb-6">
+        Alat online gratis untuk membersihkan dan memformat teks berantakan. Hapus simbol markdown seperti *, _, ~, dan
+        backticks. Format teks untuk WhatsApp dengan mudah. Tempel teks Anda dan klik format!
+      </p>
       <textarea
         id="inputText"
         placeholder="Tempel teks berantakan di sini..."
