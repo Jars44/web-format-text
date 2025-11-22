@@ -1,73 +1,105 @@
-# Messy Text Formatting
+# 🧹 Format Teks - Online Tool for Cleaning Messy Text
 
-Messy Text Formatting is a simple web application designed to clean and format messy or cluttered text. Users can paste unformatted text and use the app to remove unwanted markdown symbols, trim spaces, and limit empty lines. The app also supports copying the formatted text in both raw and WhatsApp-friendly formats.
+[![GitHub stars](https://img.shields.io/github/stars/Jars44/web-format-text?style=social)](https://github.com/Jars44/web-format-text)
+[![GitHub issues](https://img.shields.io/github/issues/Jars44/web-format-text)](https://github.com/Jars44/web-format-text/issues)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/Jars44/web-format-text/blob/main/LICENSE)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://jars44.github.io/web-format-text/)
 
-## Features
+Format Teks is a simple and free web application designed to clean and format messy or cluttered text. Users can paste unformatted text and use the app to remove unwanted markdown symbols, trim spaces, and limit empty lines. The app also supports copying the formatted text in both raw and WhatsApp-friendly formats.
 
-- Cleans and formats pasted text by removing markdown symbols such as `*`, `_`, `~`, and backticks.
-- Trims extra spaces and limits consecutive empty lines.
-- Removes lines containing only 2 or 3 hash symbols.
-- Converts markdown to plain text, handling headings, lists, links, and other structures.
-- Copies the cleaned text to the clipboard.
-- Copies a WhatsApp-formatted version of the text with appropriate markdown conversions.
-- Clears input and output fields with a single click.
-- Features a responsive and clean UI styled with Tailwind CSS.
+## ✨ Key Features
 
-## How to Use
+- 🧽 **Clean Text**: Remove markdown symbols like `*`, `_`, `~`, and backticks
+- ✂️ **Trim Spaces**: Trim extra spaces and limit consecutive empty lines
+- 🗑️ **Remove Hash Lines**: Remove lines containing only 2 or 3 hash symbols
+- 📝 **Markdown Conversion**: Convert markdown to plain text, handling headings, lists, links, and other structures
+- 📋 **Copy Text**: Copy the cleaned text to clipboard
+- 💬 **WhatsApp Format**: Copy a WhatsApp-formatted version with appropriate markdown conversions
+- 🔄 **Quick Reset**: Clear input and output fields with one click
+- 📱 **Responsive UI**: Clean and responsive design using Tailwind CSS
 
-1. Paste your messy text into the input textarea.
-2. Click the **Format Text** button to clean and format the text.
-3. View the formatted text in the output area below.
-4. Use the **Copy Raw Text** button to copy the cleaned text.
-5. Use the **Copy for WA** button to copy a WhatsApp-friendly formatted version.
-6. Use the **Clear Text** button to reset the input and output fields.
+## 🚀 Live Demo
 
-## Internal Logic
+Visit the [Live Demo](https://jars44.github.io/web-format-text/) to try the application directly in your browser.
 
-The application processes the input text using JavaScript by:
+## 📖 How to Use
 
-- Removing markdown symbols such as asterisks (`*`), underscores (`_`), tildes (`~`), and backticks.
-- Trimming leading and trailing spaces from each line.
-- Limiting consecutive empty lines to a maximum of one.
-- Removing lines that contain only 2 or 3 hash symbols.
-- Converting the cleaned text into a WhatsApp-friendly format by replacing markdown with appropriate characters.
+1. **Paste Text**: Enter messy text into the input textarea
+2. **Format Text**: Click the **✨ Format Text** button to clean and format the text
+3. **View Result**: See the formatted text in the output area below
+4. **Copy Text**: Use the **📋 Copy Raw Text** button to copy the cleaned text
+5. **Copy for WA**: Use the **📋 Copy for WA** button to copy a WhatsApp-friendly version
+6. **Reset**: Click the **🗑️ Clear Text** button to reset input and output
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-- HTML5 for structure.
-- Tailwind CSS (via CDN) for styling and responsive design.
-- Vanilla JavaScript for text processing and DOM manipulation.
+- **HTML5**: Application structure
+- **Tailwind CSS**: Styling and responsive design (via CDN)
+- **Vanilla JavaScript**: Text processing and DOM manipulation
+- **Marked.js**: Library for parsing markdown
 
-## Running the Project
+## 🔧 Internal Logic
 
-Open the `index.html` file in any modern web browser to use the application.
+The application processes input text using JavaScript with the following steps:
 
-## Contributing
+- Remove markdown symbols such as asterisks (`*`), underscores (`_`), tildes (`~`), and backticks
+- Trim leading and trailing spaces from each line
+- Limit consecutive empty lines to a maximum of one
+- Remove lines that contain only 2 or 3 hash symbols
+- Convert the cleaned text into a WhatsApp-friendly format by replacing markdown with appropriate characters
+
+- Markdown headers (#, ##, ###, ...) are converted into WhatsApp bold formatting. Example: `### 1. Judul` → `*1. Judul*`
+
+## 🧩 Developer: Rule Engine & Extensibility
+
+The app uses a flexible rule-engine implemented in `main.js` so you can tune how lines are processed without changing the core logic.
+
+- Rule format: { id, match, action }
+  - match: either a regex ({ type: 'regex', pattern: /.../ }) or a custom function(line, index, lines) returning a boolean
+  - action: one of `remove`, `removeSpaces`, `trimReduce`, `addEmptyAfter` (you can extend these)
+- Default behavior keeps markdown tokens for conversion to WhatsApp, but the cleaning call supports a `stripMarkdown` option so the same pipeline can be used for preview (strip tokens) and for export (preserve tokens)
+
+Examples and how to extend:
+
+1. Edit `main.js` and update the `DEFAULT_RULES` array to change what gets removed, preserved or reformatted.
+2. Add a new rule with `match.type: 'regex'` to target pattern-based lines (for instance, remove lines that are exact dividers).
+3. Add a `match` function when you need context-aware rules that depend on the surrounding lines.
+
+This design lets you define dynamic and composable transformations without hard-coded line indices.
+
+## 🏃‍♂️ Running the Project
+
+Open the `index.html` file in any modern web browser to use the application. No server installation or additional dependencies required.
+
+## 🤝 Contributing
 
 Contributions are welcome! Please follow these guidelines:
 
-- Fork the repository and create your branch from `main`.
-- Remove any install or build dependencies before the end of the layer when doing a build.
-- Update the README.md with details of changes to the interface, including new environment variables, exposed ports, useful file locations, and container parameters.
-- Increase the version numbers in any example files and the README.md to the new version that this Pull Request would represent.
-- Merge the Pull Request once you have the sign-off of two other developers, or if you do not have permission to do that, request the second reviewer to merge it for you.
+1. Fork the repository and create your branch from `main`
+2. Make your changes
+3. Ensure your code follows project standards
+4. Update README.md with details of changes if necessary
+5. Increase version numbers in example files and README.md
+6. Create a Pull Request
 
-## Troubleshooting
+## 🔍 Troubleshooting
 
-- Use a modern web browser for best compatibility.
-- Clear your browser cache if formatting does not work as expected.
-- Check the browser console for any JavaScript errors.
-- Ensure the input text is properly pasted into the input area.
+- Use a modern web browser for best compatibility
+- Clear browser cache if formatting doesn't work as expected
+- Check browser console for JavaScript errors
+- Ensure input text is properly pasted into the input area
 
-## FAQ
+## ❓ FAQ
 
-- **Q**: Can I use this app offline?
-  - **A**: Yes, this is a client-side web application that runs entirely in your browser without requiring an internet connection.
-- **Q**: Does the app support other markdown symbols?
-  - **A**: Currently, it supports common markdown symbols like `*`, `_`, `~`, and backticks. Support for additional symbols may be added in future updates.
-- **Q**: Can I customize the formatting rules?
-  - **A**: Not at this time, but contributions to add customization features are welcome.
+**Q: Can I use this app offline?**  
+A: Yes, this is a client-side web application that runs entirely in your browser without requiring an internet connection.
 
-## License
+**Q: Does the app support other markdown symbols?**  
+A: Currently supports common markdown symbols like `*`, `_`, `~`, and backticks. Support for additional symbols may be added in future updates.
 
-This project is open source and free to use.
+**Q: Can I customize the formatting rules?**  
+A: Not at this time, but contributions to add customization features are welcome.
+
+## 📄 License
+
+This project is open source and free to use under the [MIT license](LICENSE).
