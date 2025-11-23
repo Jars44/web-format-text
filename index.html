@@ -55,63 +55,85 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      .animate-fade-in { animation: fadeIn 0.5s ease-in; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .btn-hover { transition: all 0.3s ease; }
+      .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+    </style>
   </head>
 
-  <body
-    class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 min-h-screen flex items-center justify-center p-6"
-  >
-    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
-      <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">🧹 Format Teks Berantakan</h1>
-      <p class="text-center text-gray-600 mb-6">
-        Alat online gratis untuk membersihkan dan memformat teks berantakan. Hapus simbol markdown seperti *, _, ~, dan
-        backticks. Format teks untuk WhatsApp dengan mudah. Tempel teks Anda dan klik format!
-      </p>
-      <textarea
-        id="inputText"
-        placeholder="Tempel teks berantakan di sini..."
-        class="w-full h-48 p-4 border-2 border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent resize-y mb-4"
-      ></textarea>
-      <div class="flex gap-4 mb-4">
-        <button
-          onclick="rapihinTeks()"
-          class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
-        >
-          ✨ Format Text
-        </button>
-        <button
-          onclick="markdownToText()"
-          class="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
-        >
-          📝 Markdown to Text
-        </button>
-        <button
-          onclick="clearTeks()"
-          class="flex-1 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition"
-        >
-          🗑️ Clear Text
-        </button>
-      </div>
-      <div
-        id="outputText"
-        class="mt-6 bg-indigo-50 border border-indigo-200 rounded-lg p-4 whitespace-pre-wrap font-medium text-gray-800"
-      ></div>
-      <div class="flex gap-4 mt-4">
-        <button
-          id="copyRawBtn"
-          onclick="copyTeks()"
-          class="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
-        >
-          📋 Copy Raw Text
-        </button>
-        <button
-          id="copyWABtn"
-          onclick="copyTeksWA()"
-          class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-        >
-          📋 Copy for WA
-        </button>
+  <body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-4xl animate-fade-in">
+      <header class="text-center mb-8">
+        <div class="flex items-center justify-center mb-4">
+          <i class="fas fa-magic text-4xl text-purple-600 mr-3"></i>
+          <h1 class="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Format Teks Berantakan</h1>
+        </div>
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
+          <i class="fas fa-sparkles text-yellow-500 mr-2"></i>
+          Alat online gratis untuk membersihkan dan memformat teks berantakan. Hapus simbol markdown seperti *, _, ~, dan backticks. Format teks untuk WhatsApp dengan mudah. Tempel teks Anda dan klik format!
+        </p>
+      </header>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <label for="inputText" class="block text-sm font-semibold text-gray-700">
+            <i class="fas fa-edit text-blue-500 mr-2"></i>Input Teks
+          </label>
+          <textarea
+            id="inputText"
+            placeholder="Tempel teks berantakan di sini..."
+            class="w-full h-64 p-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:border-purple-500 resize-y transition-all duration-300"
+          ></textarea>
+          <div class="grid grid-cols-3 gap-3">
+            <button
+              onclick="rapihinTeks()"
+              class="btn-hover bg-gradient-to-r from-purple-500 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <i class="fas fa-wand-magic-sparkles mr-2"></i>Format Text
+            </button>
+            <button
+              onclick="markdownToText()"
+              class="btn-hover bg-gradient-to-r from-pink-500 to-pink-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <i class="fab fa-markdown mr-2"></i>Markdown to Text
+            </button>
+            <button
+              onclick="clearTeks()"
+              class="btn-hover bg-gradient-to-r from-red-500 to-red-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <i class="fas fa-trash-alt mr-2"></i>Clear Text
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <label for="outputText" class="block text-sm font-semibold text-gray-700">
+            <i class="fas fa-eye text-green-500 mr-2"></i>Output Teks
+          </label>
+          <div
+            id="outputText"
+            class="bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-xl p-4 h-64 overflow-y-auto whitespace-pre-wrap font-medium text-gray-800 shadow-inner"
+          ></div>
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              id="copyRawBtn"
+              onclick="copyTeks()"
+              class="btn-hover bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <i class="fas fa-copy mr-2"></i>Copy Raw Text
+            </button>
+            <button
+              id="copyWABtn"
+              onclick="copyTeksWA()"
+              class="btn-hover bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <i class="fab fa-whatsapp mr-2"></i>Copy for WA
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="main.js"></script>
-  </body>
 </html>
