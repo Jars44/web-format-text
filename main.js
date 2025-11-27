@@ -199,7 +199,7 @@ const copyTeks = async () => {
   if (!text) return;
   await writeToClipboard(text, {
     button: copyRawBtn,
-    successText: "✓ Tersalin!",
+    successText: "✓ Copied!",
     defaultText: "📋 Copy Raw Text",
     successBg: "bg-green-500",
     defaultBg: "bg-green-600",
@@ -213,7 +213,7 @@ const copyTeksWA = async () => {
     const waText = convertToWhatsApp(cleaned);
     await writeToClipboard(waText, {
       button: copyWABtn,
-      successText: "✓ Tersalin!",
+      successText: "✓ Copied!",
       defaultText: "📋 Copy for WA",
       successBg: "bg-blue-500",
       defaultBg: "bg-blue-600",

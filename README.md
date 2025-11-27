@@ -1,105 +1,178 @@
-# 🧹 Format Teks - Online Tool for Cleaning Messy Text
+# 🧹 Text Wizard - Online Tool for Cleaning Messy Text
 
-[![GitHub stars](https://img.shields.io/github/stars/Jars44/web-format-text?style=social)](https://github.com/Jars44/web-format-text)
-[![GitHub issues](https://img.shields.io/github/issues/Jars44/web-format-text)](https://github.com/Jars44/web-format-text/issues)
-[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/Jars44/web-format-text/blob/main/LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://jars44.github.io/web-format-text/)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/Jars44/text-wizard/blob/main/LICENSE)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://jars44.github.io/text-wizard/)
 
-Format Teks is a simple and free web application designed to clean and format messy or cluttered text. Users can paste unformatted text and use the app to remove unwanted markdown symbols, trim spaces, and limit empty lines. The app also supports copying the formatted text in both raw and WhatsApp-friendly formats.
+> A simple, free web application to clean and format messy text. Remove markdown symbols, trim spaces, and prepare text for WhatsApp with ease.
+
+## 📋 Table of Contents
+
+- [🧹 Text Wizard - Online Tool for Cleaning Messy Text](#-text-wizard---online-tool-for-cleaning-messy-text)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [✨ Key Features](#-key-features)
+  - [🚀 Live Demo](#-live-demo)
+  - [📖 How to Use](#-how-to-use)
+  - [🛠️ Technologies Used](#️-technologies-used)
+  - [🔧 Internal Logic](#-internal-logic)
+    - [Default Rules](#default-rules)
+  - [🧩 Developer: Rule Engine \& Extensibility](#-developer-rule-engine--extensibility)
+    - [Rule Format](#rule-format)
+    - [Extending the Engine](#extending-the-engine)
+  - [🏃‍♂️ Running the Project](#️-running-the-project)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [🤝 Contributing](#-contributing)
+    - [Development Guidelines](#development-guidelines)
+  - [🔍 Troubleshooting](#-troubleshooting)
+    - [Common Issues](#common-issues)
+    - [Browser Compatibility](#browser-compatibility)
+  - [❓ FAQ](#-faq)
+  - [📄 License](#-license)
 
 ## ✨ Key Features
 
-- 🧽 **Clean Text**: Remove markdown symbols like `*`, `_`, `~`, and backticks
-- ✂️ **Trim Spaces**: Trim extra spaces and limit consecutive empty lines
-- 🗑️ **Remove Hash Lines**: Remove lines containing only 2 or 3 hash symbols
-- 📝 **Markdown Conversion**: Convert markdown to plain text, handling headings, lists, links, and other structures
-- 📋 **Copy Text**: Copy the cleaned text to clipboard
-- 💬 **WhatsApp Format**: Copy a WhatsApp-formatted version with appropriate markdown conversions
-- 🔄 **Quick Reset**: Clear input and output fields with one click
-- 📱 **Responsive UI**: Clean and responsive design using Tailwind CSS
+- 🧽 **Clean Text**: Automatically remove unwanted markdown symbols like `*`, `_`, `~`, and backticks
+- ✂️ **Trim Spaces**: Eliminate extra spaces and limit consecutive empty lines
+- 🗑️ **Remove Separators**: Strip out lines with only hash symbols or dashes
+- 📝 **Markdown Conversion**: Convert markdown to plain text, preserving structure
+- 📋 **Copy Functionality**: One-click copying for raw text and WhatsApp-formatted versions
+- 🔄 **Quick Reset**: Clear input and output with a single button
+- 📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
+- ⚡ **No Installation**: Runs entirely in your browser, no setup required
 
 ## 🚀 Live Demo
 
-Visit the [Live Demo](https://jars44.github.io/web-format-text/) to try the application directly in your browser.
+Experience the tool live: **[Text Wizard Demo](https://jars44.github.io/text-wizard/)**
 
 ## 📖 How to Use
 
-1. **Paste Text**: Enter messy text into the input textarea
-2. **Format Text**: Click the **✨ Format Text** button to clean and format the text
-3. **View Result**: See the formatted text in the output area below
-4. **Copy Text**: Use the **📋 Copy Raw Text** button to copy the cleaned text
-5. **Copy for WA**: Use the **📋 Copy for WA** button to copy a WhatsApp-friendly version
-6. **Reset**: Click the **🗑️ Clear Text** button to reset input and output
+1. **Paste Your Text**: Copy and paste messy text into the input area
+2. **Choose Action**:
+   - Click **✨ Format Text** to clean and format the text
+   - Click **📝 Markdown to Text** to convert markdown to plain text
+   - Click **🗑️ Clear Text** to reset everything
+3. **View Results**: See the processed text in the output area
+4. **Copy Results**:
+   - **📋 Copy Raw Text** for plain cleaned text
+   - **💬 Copy for WA** for WhatsApp-compatible formatting
 
 ## 🛠️ Technologies Used
 
-- **HTML5**: Application structure
-- **Tailwind CSS**: Styling and responsive design (via CDN)
-- **Vanilla JavaScript**: Text processing and DOM manipulation
-- **Marked.js**: Library for parsing markdown
+- **HTML5**: Semantic structure and accessibility
+- **Tailwind CSS**: Utility-first CSS framework for responsive design
+- **Vanilla JavaScript**: Client-side text processing and DOM manipulation
+- **Marked.js**: Lightweight markdown parser for conversion
+- **Font Awesome**: Icons for enhanced UI
 
 ## 🔧 Internal Logic
 
-The application processes input text using JavaScript with the following steps:
+The application processes text through a multi-step pipeline:
 
-- Remove markdown symbols such as asterisks (`*`), underscores (`_`), tildes (`~`), and backticks
-- Trim leading and trailing spaces from each line
-- Limit consecutive empty lines to a maximum of one
-- Remove lines that contain only 2 or 3 hash symbols
-- Convert the cleaned text into a WhatsApp-friendly format by replacing markdown with appropriate characters
+1. **Normalization**: Convert line endings to Unix format
+2. **Rule Application**: Apply configurable rules to each line
+3. **Line Limiting**: Restrict consecutive blank lines
+4. **WhatsApp Formatting**: Convert markdown to WhatsApp-compatible syntax
 
-- Markdown headers (#, ##, ###, ...) are converted into WhatsApp bold formatting. Example: `### 1. Judul` → `*1. Judul*`
+### Default Rules
+
+- Remove separator lines (---, ##, ###)
+- Trim and reduce multiple spaces
+- Preserve code blocks during processing
 
 ## 🧩 Developer: Rule Engine & Extensibility
 
-The app uses a flexible rule-engine implemented in `main.js` so you can tune how lines are processed without changing the core logic.
+The core uses a flexible rule-based engine in `main.js` for easy customization:
 
-- Rule format: { id, match, action }
-  - match: either a regex ({ type: 'regex', pattern: /.../ }) or a custom function(line, index, lines) returning a boolean
-  - action: one of `remove`, `removeSpaces`, `trimReduce`, `addEmptyAfter` (you can extend these)
-- Default behavior keeps markdown tokens for conversion to WhatsApp, but the cleaning call supports a `stripMarkdown` option so the same pipeline can be used for preview (strip tokens) and for export (preserve tokens)
+```javascript
+const DEFAULT_RULES = [
+  { id: "remove-separators", match: { type: "regex", pattern: /^-{3,}\s*$/ }, action: "remove" },
+  { id: "remove-hash-only", match: { type: "regex", pattern: /^#{2,3}\s*$/ }, action: "remove" },
+  { id: "trim-reduce-md-preview", match: { type: "regex", pattern: /\S/ }, action: "trimReduce" },
+];
+```
 
-Examples and how to extend:
+### Rule Format
 
-1. Edit `main.js` and update the `DEFAULT_RULES` array to change what gets removed, preserved or reformatted.
-2. Add a new rule with `match.type: 'regex'` to target pattern-based lines (for instance, remove lines that are exact dividers).
-3. Add a `match` function when you need context-aware rules that depend on the surrounding lines.
+- **id**: Unique identifier for the rule
+- **match**: Either a regex pattern or custom function
+- **action**: Processing action (`remove`, `removeSpaces`, `trimReduce`, `addEmptyAfter`)
 
-This design lets you define dynamic and composable transformations without hard-coded line indices.
+### Extending the Engine
+
+1. Modify `DEFAULT_RULES` in `main.js` to add new rules
+2. Use regex for pattern matching or functions for complex logic
+3. Test changes by running the app locally
 
 ## 🏃‍♂️ Running the Project
 
-Open the `index.html` file in any modern web browser to use the application. No server installation or additional dependencies required.
+### Prerequisites
+
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Internet connection for CDN resources (optional for offline use)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Jars44/text-wizard.git
+   cd text-wizard
+   ```
+
+2. Open `index.html` in your browser
+
+That's it! No build process or server required.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these guidelines:
+We welcome contributions! Here's how to get started:
 
-1. Fork the repository and create your branch from `main`
-2. Make your changes
-3. Ensure your code follows project standards
-4. Update README.md with details of changes if necessary
-5. Increase version numbers in example files and README.md
-6. Create a Pull Request
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** your changes: `git commit -m 'Add amazing feature'`
+4. **Push** to the branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
+
+### Development Guidelines
+
+- Follow existing code style
+- Add tests for new features
+- Update documentation as needed
+- Ensure responsive design works on mobile
 
 ## 🔍 Troubleshooting
 
-- Use a modern web browser for best compatibility
-- Clear browser cache if formatting doesn't work as expected
-- Check browser console for JavaScript errors
-- Ensure input text is properly pasted into the input area
+### Common Issues
+
+- **Text not formatting**: Check browser console for JavaScript errors
+- **Copy not working**: Ensure clipboard permissions are enabled
+- **Styling issues**: Clear browser cache or try incognito mode
+- **Mobile display**: Ensure viewport meta tag is present
+
+### Browser Compatibility
+
+- ✅ Chrome 70+
+- ✅ Firefox 65+
+- ✅ Safari 12+
+- ✅ Edge 79+
 
 ## ❓ FAQ
 
-**Q: Can I use this app offline?**  
-A: Yes, this is a client-side web application that runs entirely in your browser without requiring an internet connection.
+**Q: Can I use this offline?**  
+A: Yes! Once loaded, the app works without internet. CDN resources are cached locally.
 
-**Q: Does the app support other markdown symbols?**  
-A: Currently supports common markdown symbols like `*`, `_`, `~`, and backticks. Support for additional symbols may be added in future updates.
+**Q: Is my data stored anywhere?**  
+A: No. All processing happens in your browser. Text never leaves your device.
 
 **Q: Can I customize the formatting rules?**  
-A: Not at this time, but contributions to add customization features are welcome.
+A: Currently, rules are predefined, but the code is open-source for modifications.
+
+**Q: What markdown elements are supported?**  
+A: Headers, bold/italic text, inline code, and basic formatting. Complex structures may need manual adjustment.
+
+**Q: How do I report bugs?**  
+A: Open an issue on GitHub with steps to reproduce and your browser/OS info.
 
 ## 📄 License
 
-This project is open source and free to use under the [MIT license](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
